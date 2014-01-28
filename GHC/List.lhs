@@ -1,6 +1,6 @@
 \begin{code}
 {-# LANGUAGE Trustworthy #-}
-{-# LANGUAGE CPP, NoImplicitPrelude, MagicHash #-}
+{-# LANGUAGE CPP, NoImplicitPrelude, ScopedTypeVariables, MagicHash #-}
 {-# OPTIONS_HADDOCK hide #-}
 
 -----------------------------------------------------------------------------
@@ -178,11 +178,9 @@ filterFB c p x r | p x       = x `c` r
 -- can be inlined, and then (often) strictness-analysed,
 -- and hence the classic space leak on foldl (+) 0 xs
 
-foldl        :: (b -> a -> b) -> b -> [a] -> b
-foldl f z0 xs0 = lgo z0 xs0
-             where
-                lgo z []     =  z
-                lgo z (x:xs) = lgo (f z x) xs
+foldl :: forall a b. (b -> a -> b) -> b -> [a] -> b
+{-# INLINE foldl #-}
+foldl k z xs = foldr (\(v::a) (fn::b->b) (z::b) -> fn (k z v)) (id :: b -> b) xs z
 
 -- | 'scanl' is similar to 'foldl', but returns a list of successive
 -- reduced values from the left:
