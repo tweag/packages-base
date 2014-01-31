@@ -238,6 +238,7 @@ Library
         GHC.Show
         GHC.Stable
         GHC.Stack
+        GHC.StaticRef
         GHC.Stats
         GHC.Storable
         GHC.TopHandler
