@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------
 -- |
--- Module      :  GHC.StaticRef
+-- Module      :  GHC.Ref
 -- Copyright   :  (c) Tweag I/O, 2014
 -- License     :  see libraries/base/LICENSE
 --
@@ -10,18 +10,18 @@
 --
 -- References to static values.
 --
--- The form @static e@ produces terms of type @StaticRef a@ when @e :: a@
+-- The form @static e@ produces terms of type @Ref a@ when @e :: a@
 -- and the StaticValues language extension is enabled.
 --
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE DeriveDataTypeable #-}
-module GHC.StaticRef where
+module GHC.Ref where
 
 import Data.Typeable (Typeable)
 
 -- | A reference to a top-level value of type 'a'.
-data StaticRef a = StaticRef { unStaticRef :: GlobalName }
+data Ref a = Ref { unRef :: GlobalName }
   deriving (Show, Typeable)
 
 -- | Global names identifying top-level values.
