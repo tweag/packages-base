@@ -36,26 +36,16 @@ import Data.Typeable (Typeable)
 data Ref a = Ref { unRef :: GlobalName }
   deriving (Show, Typeable)
 
--- | Global names identifying top-level values.
+-- | Global names identifying top-level values
 --
--- > GlobalName package_id installed_package_suffix module_name value_name
+-- > GlobalName package_id installed_package_id module_name value_name
 --
--- In essence a 'GlobalName' augments the information provided by
+-- In essence, a 'GlobalName' augments the information provided by
 -- 'Language.Haskell.TH.Syntax.Name' with the information in the
--- @installed_package_suffix@ field.
---
--- The package identifier usually includes the package name and the package
--- version.
---
--- The installed package identifier
--- (Cabal:'Distribution.Package.InstalledPackageId') includes the package
--- identifier and oftenly a hash value that is needed to identify the package
--- when multiple variations of it are installed. Thus, a global name includes
--- this complementary information in the @installed_package_suffix@ field.
---
--- Beware that GHC has a notion of wired-in packages, like ghc-prim, base and
--- others. For these packages, the package version may not appear in the
--- package identifier but in the installed package suffix instead.
+-- @installed_package_id@ field. This field is
+-- Cabal:'Distribution.Package.InstalledPackageId' and it
+-- is needed to identify the package when multiple variations of it are
+-- installed.
 --
 data GlobalName = GlobalName String String String String
   deriving (Show, Typeable)
